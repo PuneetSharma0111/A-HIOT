@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Merge Descriptors – AHIOT</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav>
+    <a href="index.html">🏠 Home</a>
+    <a href="upload.html">⬆ Upload</a>
+    <a href="filter.html">🧪 Filter</a>
+    <a href="padel.html">🧬 PaDEL</a>
+    <a href="merge.html">🔗 Merge</a>
+    <a href="filter_columns.html">📊 Column Filter</a>
+    <a href="correlation.html">📈 Correlation</a>
+    <a href="filter_final.html">✅ Final ML File</a>
+    <a href="add_label.html">🏷️ Add Label</a>
+    <a href="ensemble.html">🧠 Ensemble</a>
+
+  </nav>
+
+  <div class="container">
+    <h1>🔗 Merge Descriptors</h1>
+
+    <button class="btn" id="mergeBtn">🔗 Merge descriptorsA.csv + descriptorsB.csv</button>
+    
+    <div id="mergeMsg" class="output-box">⏳ Waiting for merge...</div>
+
+    <a id="mergedDownload" href="/descriptors/merged.csv" download hidden>⬇ Download Merged CSV</a>
+  </div>
+
+  <!-- ✅ Include only the correct script -->
+  <script src="script-merge.js"></script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ML Final Filter – AHIOT</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav>
+    <a href="index.html">🏠 Home</a>
+    <a href="upload.html">⬆ Upload</a>
+    <a href="filter.html">🧪 Filter</a>
+    <a href="padel.html">🧬 PaDEL</a>
+    <a href="merge.html">🔗 Merge</a>
+    <a href="filter_columns.html">📊 Column Filter</a>
+    <a href="correlation.html">📈 Correlation</a>
+    <a href="filter_final.html">✅ Final ML File</a>
+    <a href="add_label.html">🏷️ Add Label</a>
+    <a href="ensemble.html">🧠 Ensemble</a>
+
+  </nav>
+
+  <div class="container">
+    <h1>✅ Generate Final ML-Ready CSV</h1>
+    
+    <button class="btn" id="generateFinalBtn">▶️ Run Final Filter</button>
+    <div id="finalMsg" class="output-box">⏳ Waiting to generate...</div>
+
+    <a id="downloadFinalCSV" href="/descriptors/BOTH_Final_ML_ready_file.csv" download hidden>⬇ Download Final CSV</a>
+  </div>
+
+  <script>
+    document.getElementById("generateFinalBtn").addEventListener("click", () => {
+      const msg = document.getElementById("finalMsg");
+      const downloadLink = document.getElementById("downloadFinalCSV");
+
+      msg.innerText = "⏳ Running Final Filter...";
+      fetch("/filter-final", { method: "POST" })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            msg.innerText = "✅ Final CSV generated successfully!";
+            downloadLink.href = data.csvPath;
+            downloadLink.hidden = false;
+          } else {
+            msg.innerText = "❌ Failed to generate CSV.";
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+          msg.innerText = "❌ Server error.";
+        });
+    });
+  </script>
+</body>
+</html>

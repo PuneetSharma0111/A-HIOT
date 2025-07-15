@@ -1,0 +1,132 @@
+/* General Reset and Font */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: linear-gradient(to right, #dfe9f3, #ffffff);
+  color: #333;
+  padding: 2rem;
+}
+
+/* Container */
+.container {
+  max-width: 800px;
+  margin: auto;
+  background-color: #ffffff;
+  padding: 2.5rem;
+  border-radius: 16px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* Headings */
+h1 {
+  text-align: center;
+  color: #1f3b5c;
+  margin-bottom: 1.8rem;
+}
+
+/* Navigation Bar */
+nav {
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: #f0f4ff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.04);
+}
+
+nav a {
+  text-decoration: none;
+  color: #0077cc;
+  font-weight: 600;
+  margin: 0 1rem;
+  transition: color 0.3s ease, font-weight 0.3s ease;
+}
+
+nav a:hover {
+  color: #005a9e;
+  font-weight: 700;
+}
+
+/* Buttons */
+button, .btn {
+  display: inline-block;
+  background-color: #4caf50;
+  color: white;
+  padding: 0.75rem 1.8rem;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  margin: 1rem auto;
+  display: block;
+}
+
+button:hover, .btn:hover {
+  background-color: #388e3c;
+  transform: scale(1.05);
+}
+
+.btn {
+  text-align: center;
+  text-decoration: none;
+}
+
+/* File Input */
+input[type="file"] {
+  display: block;
+  margin: 1rem auto;
+  border: 2px dashed #ccc;
+  padding: 0.7rem;
+  border-radius: 8px;
+  cursor: pointer;
+  background-color: #fafafa;
+}
+
+/* Message Box */
+#message {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 1.1rem;
+  font-weight: bold;
+  color: #222;
+}
+
+/* Output Box */
+.output-box {
+  background-color: #f8f9fa;
+  border: 2px dashed #c0c0c0;
+  padding: 1.2rem;
+  border-radius: 10px;
+  font-family: monospace;
+  font-size: 0.96rem;
+  text-align: left;
+  overflow-x: auto;
+  margin-top: 1rem;
+}
+
+/* Download Link */
+#downloadLink {
+  display: block;
+  text-align: center;
+  margin-top: 2rem;
+  text-decoration: none;
+  background-color: #2196f3;
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: bold;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#downloadLink:hover {
+  background-color: #1976d2;
+}

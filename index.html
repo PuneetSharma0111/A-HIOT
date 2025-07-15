@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>A-HIOT Dashboard</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #f2f7ff;
+      color: #333;
+      margin: 0;
+      padding: 2rem;
+    }
+
+    .dashboard {
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .container {
+      flex: 2;
+      max-width: 800px;
+      background: #fff;
+      padding: 3rem 2rem;
+      border-radius: 16px;
+      box-shadow: 0 0 25px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 1rem;
+      font-size: 2.2rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      color: #666;
+      margin-bottom: 2rem;
+    }
+
+    .btn-grid {
+      display: grid;
+      gap: 1rem;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      margin-top: 2rem;
+    }
+
+    .btn {
+      padding: 1rem;
+      font-size: 1rem;
+      color: white;
+      background: linear-gradient(45deg, #3f87a6, #6ec6ff);
+      border: none;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: transform 0.2s ease, background 0.3s;
+    }
+
+    .btn:hover {
+      background: linear-gradient(45deg, #2f6e88, #55b6ff);
+      transform: translateY(-3px);
+    }
+
+    /* Chatbot */
+    #chatbot-toggle {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      border: none;
+      border-radius: 50%;
+      background: #3f87a6;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    #chatbot {
+      display: none;
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      width: 320px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+      overflow: hidden;
+      border: 1px solid #ccc;
+      font-family: sans-serif;
+      background: white;
+      z-index: 1000;
+      flex-direction: column;
+    }
+
+    #chat-header {
+      background: #3f87a6;
+      color: #fff;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    #chat-messages {
+      max-height: 300px;
+      overflow-y: auto;
+      padding: 10px;
+      height: 300px;
+    }
+
+    #chat-input {
+      display: flex;
+      border-top: 1px solid #ccc;
+    }
+
+    #chat-input input {
+      flex: 1;
+      padding: 10px;
+      border: none;
+      outline: none;
+    }
+
+    #chat-input button {
+      background: #3f87a6;
+      color: white;
+      border: none;
+      padding: 0 15px;
+      cursor: pointer;
+    }
+
+    #chat-messages a {
+      color: #0066cc;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="dashboard">
+    <div class="container">
+      <h1>📊 A-HIOT Dashboard</h1>
+      <p>Your one-stop tool for molecular filtering, descriptor generation, heatmaps & more</p>
+
+      <div class="btn-grid">
+        <a href="upload.html" class="btn">📤 Upload Files</a>
+        <a href="filter.html" class="btn">🔍 Filter Molecules</a>
+        <a href="padel.html" class="btn">🧪 Generate Descriptors</a>
+        <a href="merge.html" class="btn">🔗 Merge Active & Decoy</a>
+        <a href="filter_columns.html" class="btn">📊 Column Filter</a>
+        <a href="correlation.html" class="btn">📈 Correlation</a>
+        <a href="filter_final.html" class="btn">✅ Final ML File</a>
+        <a href="add_label.html" class="btn">🏷️ Add Label</a>
+        <a href="ensemble.html" class="btn">🧠 Ensemble</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- 💬 Toggle Button -->
+  <button id="chatbot-toggle" onclick="toggleChatbot()">💬</button>
+
+  <!-- 🤖 Chatbot Box -->
+  <div id="chatbot">
+    <div id="chat-header">
+      🤖 AHIOT Assistant
+      <button onclick="toggleChatbot()" style="background:none;border:none;color:white;font-size:16px;cursor:pointer;">✖</button>
+    </div>
+    <div id="chat-messages"></div>
+    <div id="chat-input">
+      <input type="text" id="userInput" placeholder="Ask about AHIOT..." />
+      <button onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <script>
+    function toggleChatbot() {
+      const bot = document.getElementById('chatbot');
+      bot.style.display = (bot.style.display === 'none' || bot.style.display === '') ? 'flex' : 'none';
+    }
+
+    const questions = {
+      "what is ahiot": "A-HIOT is a tool for molecular filtering, descriptor generation, heatmap analysis, and ML model creation.",
+      "how to upload files": "Click on 'Upload Files' and select your SDF or CSV data files.",
+      "how to filter molecules": "Use the 'Filter Molecules' page to select top N compounds for Active and Decoy sets.",
+      "what is padel descriptor": "PaDEL-Descriptor calculates 1D, 2D, and fingerprint descriptors for molecules.",
+      "how to merge active and decoy": "Visit 'Merge Active & Decoy' to create a single file containing both sets.",
+      "what does column filter do": "It removes features with zero variance or low standard deviation.",
+      "what is correlation heatmap": "It shows the correlation between descriptors to identify redundant features.",
+      "what is final ml file": "It’s the clean, filtered CSV file ready for training your ML model.",
+      "how to add binary label": "Use the 'Add Label' tool to assign 1 to actives and 0 to decoys.",
+      "how to train ensemble model": "Click on 'Ensemble' to train Random Forest, Deep Learning & Stack them.",
+      "which format should i upload": "Upload .sdf for molecules and .csv for descriptors.",
+      "can i re-run filtering": "Yes, you can re-upload files and run filtering anytime.",
+      "can i download results": "Yes, each tool saves output which can be downloaded as CSV or PNG.",
+      "how to fix sdf error": "Ensure valid .sdf file format and molecule names are unique.",
+      "how to generate heatmap": "Use the Correlation tool after filtering descriptors.",
+      "how to improve model": "Remove correlated features, balance classes, and try ensemble.",
+      "what are active compounds": "Compounds showing desired biological activity.",
+      "what are decoy compounds": "Inactives used to balance dataset for ML training.",
+      "how to interpret correlation": "Values near ±1 show strong correlation; remove duplicates.",
+      "can i use my own data": "Yes! Just upload your own SDF or CSV files.",
+      "what are ensemble models": "A combination of multiple models to improve prediction accuracy.",
+      "can i use deep learning": "Yes, deep learning is included in ensemble pipeline.",
+      "how to reset dashboard": "Refresh or clear the uploaded files.",
+      "how long does it take": "Small datasets take seconds; large ones may take a few minutes.",
+      "can i use this offline": "Yes! This version works completely offline.",
+      "can i modify code": "Absolutely! The tool is open and customizable.",
+      "how many descriptors used": "Depends on the PaDEL output and post-filtering.",
+      "what is csv format": "Comma-separated values, used for tables like descriptors.",
+      "what is sdf format": "Structure-data file, used to store molecular structures.",
+      "how to handle large files": "Split into parts or ensure enough system memory.",
+      "how to check feature importance": "Use ensemble model’s feature importance output.",
+      "how to visualize molecules": "Currently not supported, but you can add 3D viewers.",
+      "how to contribute": "Fork the codebase and enhance tools!",
+      "where is output saved": "Usually in the output/ or public/ directory.",
+      "can i retrain model": "Yes, just re-run the ensemble pipeline.",
+      "what tech used here": "HTML, CSS, JS frontend with Node.js + Python + Java backend.",
+      "can i integrate new scripts": "Yes, just hook them into backend routes.",
+      "what is h2o": "An ML library used for training high-performance models.",
+      "tips for better accuracy": "Clean data, balance classes, and remove noise.",
+      "how to run locally": "Just open index.html in any browser or serve via localhost.",
+      "can i run it on mobile": "Best viewed on desktop for full functionality.",
+      "how to fix errors": "Use console logs or error messages to debug.",
+      "what if paDEL fails": "Check if Java is installed and SDF files are clean.",
+      "how to preprocess data": "Use filter + column filter + correlation tools in order.",
+      "how to save models": "Currently models are not saved; future feature planned.",
+      "can i use sklearn": "You can integrate it by modifying the backend pipeline.",
+      "is this tool open source": "Yes, and you're encouraged to extend it!",
+      "how to visualize predictions": "Use Python or JS charts (future plan for dashboard).",
+      "how to contact support": "Reach out via GitHub or email (if available).",
+      "who developed this": "This project was created during a CSIR internship using Node.js + Python.",
+      "can i see logs": "Yes, logs appear in backend terminal or browser console.",
+      "upload files": "Click <a href='upload.html' target='_blank'>here</a> to go to the Upload Files tool.",
+      "filter molecules": "Use the <a href='filter.html' target='_blank'>Filter Molecules</a> tool to pick top compounds.",
+      "generate descriptors": "Go to <a href='padel.html' target='_blank'>Generate Descriptors</a> to run PaDEL.",
+      "merge active and decoy": "You can merge them <a href='merge.html' target='_blank'>here</a>.",
+      "filter columns": "Use <a href='filter_columns.html' target='_blank'>this tool</a> to clean noisy columns.",
+      "correlation": "Generate a heatmap <a href='correlation.html' target='_blank'>here</a>.",
+      "final ml file": "Create final ML-ready file from <a href='filter_final.html' target='_blank'>this tool</a>.",
+      "add label": "Assign binary labels with <a href='add_label.html' target='_blank'>Add Label</a>.",
+      "train ensemble": "Run ML models from <a href='ensemble.html' target='_blank'>Ensemble</a> page.",
+      "download output": "📁 <a href='output/BOTH_Final_ML_ready_file_with_label.csv' download>Download Final CSV</a>",
+    };
+
+    function getAnswer(input) {
+      const query = input.toLowerCase();
+      for (const key in questions) {
+        if (query.includes(key)) return questions[key];
+      }
+      return "❓ Try asking about uploading, filtering, descriptors, correlation, or downloading.";
+    }
+
+    function addMessage(content, sender = 'user') {
+      const div = document.createElement('div');
+      div.style.marginBottom = '8px';
+      div.style.textAlign = sender === 'user' ? 'right' : 'left';
+      div.innerHTML = `<span style="display:inline-block;padding:8px 12px;border-radius:10px;background:${sender === 'user' ? '#3f87a6' : '#e6f0ff'};color:${sender === 'user' ? 'white' : '#333'};">${content}</span>`;
+      document.getElementById("chat-messages").appendChild(div);
+      document.getElementById("chat-messages").scrollTop = document.getElementById("chat-messages").scrollHeight;
+    }
+
+    function sendMessage() {
+      const input = document.getElementById("userInput").value.trim();
+      if (!input) return;
+      addMessage(input, 'user');
+      document.getElementById("userInput").value = "";
+      const reply = getAnswer(input);
+      setTimeout(() => addMessage(reply, 'bot'), 300);
+    }
+  </script>
+
+</body>
+</html>

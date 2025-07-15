@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Upload SMILES – AHIOT</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav>
+    <a href="index.html">🏠 Home</a>
+    <a href="upload.html">⬆ Upload</a>
+    <a href="filter.html">🧪 Filter</a>
+    <a href="padel.html">🧬 PaDEL</a>
+    <a href="merge.html">🔗 Merge</a>
+    <a href="filter_columns.html">📊 Column Filter</a>
+    <a href="correlation.html">📈 Correlation</a>
+    <a href="filter_final.html">✅ Final ML File</a>
+    <a href="add_label.html">🏷️ Add Label</a>
+    <a href="ensemble.html">🧠 Ensemble</a>
+
+
+  </nav>
+
+  <div class="container">
+    <h1>⬆ Upload SMILES File</h1>
+    <form id="uploadForm" class="form-box">
+      <input type="file" name="smiles" required />
+      <button class="btn" type="submit">📄 Generate SDF</button>
+    </form>
+    <div id="message" class="output-box"></div>
+  </div>
+
+  <script src="script.js"></script>
+  <script src="script-upload.js"></script>
+</body>
+</html>

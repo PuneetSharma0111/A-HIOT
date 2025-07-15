@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Correlation Heatmap – AHIOT</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav>
+    <a href="index.html">🏠 Home</a>
+    <a href="upload.html">⬆ Upload</a>
+    <a href="filter.html">🧪 Filter</a>
+    <a href="padel.html">🧬 PaDEL</a>
+    <a href="merge.html">🔗 Merge</a>
+    <a href="filter_columns.html">📊 Column Filter</a>
+    <a href="correlation.html">📈 Correlation</a>
+    <a href="filter_final.html">✅ Final ML File</a>
+    <a href="add_label.html">🏷️ Add Label</a>
+    <a href="ensemble.html">🧠 Ensemble</a>
+
+
+  </nav>
+
+  <div class="container">
+    <h1>📈 Generate Correlation Heatmap</h1>
+    
+    <button class="btn" id="correlateBtn">▶️ Generate Correlation</button>
+    <div id="correlationMsg" class="output-box">⏳ Waiting to generate...</div>
+
+    <a id="downloadCorrCSV" href="/descriptors/correlation_matrix.csv" download hidden>⬇ Download Correlation Matrix (CSV)</a><br>
+    <a id="downloadCorrPNG" href="/descriptors/correlation_matrix_heatmap.png" download hidden>🖼️ View Heatmap (PNG)</a>
+  </div>
+
+  <script src="script-correlation.js"></script>
+</body>
+</html>

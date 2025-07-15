@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Add Binary Label – AHIOT</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <nav>
+    <a href="index.html">🏠 Home</a>
+    <a href="upload.html">⬆ Upload</a>
+    <a href="filter.html">🧪 Filter</a>
+    <a href="padel.html">🧬 PaDEL</a>
+    <a href="merge.html">🔗 Merge</a>
+    <a href="filter_columns.html">📊 Column Filter</a>
+    <a href="correlation.html">📈 Correlation</a>
+    <a href="add_label.html">🏷️ Add Label</a>
+    <a href="ensemble.html">🧠 Ensemble</a>
+
+  </nav>
+
+  <div class="container">
+    <h1>🏷️ Add Binary Label</h1>
+
+    <form id="labelForm">
+      <label for="numOnes">Enter number of rows to label as 1:</label>
+      <input type="number" id="numOnes" name="numOnes" required min="0" />
+      <button type="submit" class="btn">▶️ Generate Label</button>
+    </form>
+
+    <div id="result" class="output-box">⏳ Awaiting submission...</div>
+
+    <!-- Download link (initially hidden) -->
+    <a id="downloadLink" class="btn" href="/output/BOTH_Final_ML_ready_file_with_label.csv" download hidden>⬇ Download Labeled CSV</a>
+  </div>
+
+  <script>
+    const form = document.getElementById("labelForm");
+    const resultBox = document.getElementById("result");
+    const downloadLink = document.getElementById("downloadLink");
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const numOnes = document.getElementById("numOnes").value;
+
+      resultBox.textContent = "⚙️ Running script...";
+      downloadLink.hidden = true;
+
+      const res = await fetch("/add-label", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ numOnes })
+      });
+
+      const data = await res.json();
+      if (res.ok) {
+        resultBox.textContent = `✅ ${data.message}`;
+        downloadLink.hidden = false;
+      } else {
+        resultBox.textContent = `❌ ${data.error}`;
+      }
+    });
+  </script>
+</body>
+</html>
